@@ -1,35 +1,40 @@
-import { useState } from 'react'
-import reactLogo from './assets/react.svg'
-import viteLogo from '/vite.svg'
-import './App.css'
+import React from "react";
+import "aframe";
+import { Entity, Scene } from "aframe-react";
 
-function App() {
-  const [count, setCount] = useState(0)
-
+const App: React.FC = () => {
   return (
-    <>
-      <div>
-        <a href="https://vite.dev" target="_blank">
-          <img src={viteLogo} className="logo" alt="Vite logo" />
-        </a>
-        <a href="https://react.dev" target="_blank">
-          <img src={reactLogo} className="logo react" alt="React logo" />
-        </a>
-      </div>
-      <h1>Vite + React</h1>
-      <div className="card">
-        <button onClick={() => setCount((count) => count + 1)}>
-          count is {count}
-        </button>
-        <p>
-          Edit <code>src/App.tsx</code> and save to test HMR
-        </p>
-      </div>
-      <p className="read-the-docs">
-        Click on the Vite and React logos to learn more
-      </p>
-    </>
-  )
-}
+    <div className="App">
+      <Scene>
+        {/* カメラ */}
+        <Entity camera position="0 1.6 3" look-controls />
 
-export default App
+        {/* ライト */}
+        <Entity light={{ type: "ambient", color: "#ffffff", intensity: 0.5 }} />
+        <Entity
+          light={{ type: "directional", intensity: 1.0 }}
+          position="1 2 0"
+        />
+        <Entity light={{ type: "point", intensity: 1.5 }} position="0 2 2" />
+
+        {/* PLY モデル */}
+        <Entity
+          ply-model="src: /models/hmv.ply"
+          position="0 1 -3"
+          scale="0.5 0.5 0.5"
+          material={{ color: "#00ff00", metalness: 0.3, roughness: 0.8 }}
+        />
+
+        {/* 地面 */}
+        <Entity
+          geometry={{ primitive: "plane", width: 10, height: 10 }}
+          material={{ color: "#cccccc" }}
+          rotation="-90 0 0"
+          position="0 0 -4"
+        />
+      </Scene>
+    </div>
+  );
+};
+
+export default App;
