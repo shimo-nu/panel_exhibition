@@ -18,7 +18,7 @@ const App: React.FC = () => {
         <Entity light={{ type: "point", intensity: 1.5 }} position="0 2 2" />
 
         {/* PLY モデル */}
-        <Entity primitive="a-assets">
+        <Entity primitive="a-assets" timeout="100000">
           <Entity primitive="a-asset-item" id="hmv" src="/models/hmv_convereted.ply" />
         </Entity>
         <Entity
